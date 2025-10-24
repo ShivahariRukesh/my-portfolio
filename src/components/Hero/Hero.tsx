@@ -47,7 +47,8 @@ const Hero = () => {
                 scrollTrigger: {
                     trigger: ele,
                     start: "top top",
-                    end: index === 2 ? "+=1500px" : "+=1300px",
+                    end: index === 2 ? "+=1550px" : "+=1300px",
+                    //...(index === 2 ?{ pin: ele.children[0] }:{}) ,
                     pin: ele.children[0],
                     scrub: true,
                     pinSpacing: false,

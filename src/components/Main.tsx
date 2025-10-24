@@ -42,7 +42,7 @@ const Main = () => {
 
     return (
 
-        <div className="min-h-screen relative z-0 bg-black">
+        <div className="min-h-screen relative z-0 bg-gray-800">
 
 
             <Navbar />
