@@ -1,0 +1,17 @@
+.card {
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+  
+  .card:hover {
+    transform: rotateY(180deg);
+  }
+  
+  .card-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* For Safari */
+  }
+  
+  .card-back {
+    transform: rotateY(180deg);
+  }
