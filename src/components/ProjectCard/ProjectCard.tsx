@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
 import type { ProjectDetailType } from '../../types/projectDetailType'
 
-type ProjectCardProps = ProjectDetailType & {
-    index: number;
-}
+// type ProjectCardProps = ProjectDetailType & {
+//     index: number;
+// }
 
 const ProjectCard = ({ index, title, image, githubLink, color, description }: ProjectDetailType & { index: number }) => {
 
-    const [isCardClicked, setIsCardClicked] = useState(false)
 
     return (
 
