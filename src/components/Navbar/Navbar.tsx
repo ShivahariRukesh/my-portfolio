@@ -38,51 +38,51 @@ const Navbar = () => {
     return (
 
         // <div className="navbar-main  flex justify-center  relative z-0  h-[400vh] bg-black text-gray-300 text-4xl">
-        <div className="min-h-screen relative z-0 bg-black">
 
-            {/* <div className="navbar flex items-center justify-center h-16 sticky top-0 rounded-lg bg-gray-900 w-11/12 "> */}
+        //  <div className="navbar flex items-center justify-center h-16 sticky top-0 rounded-lg bg-gray-900 w-11/12 ">
 
-            <nav className="navbar mx-auto  z-10 w-8/12 bg-black rounded-full px-8 py-4 shadow-amber-800 shadow-2xl flex sticky top-0 items-center justify-between">
-                <div className="nav-elements flex items-center gap-x-32">
-                    <a
-                        href="#about"
-                        className="text-white text-lg font-medium hover:text-gray-300 transition-colors"
-                    >
-                        About
-                    </a>
-                    <a
-                        href="#contact"
-                        className="text-white text-lg font-medium hover:text-gray-300 transition-colors"
-                    >
-                        Contact
-                    </a>
-                    <a
-                        href="#projects"
-                        className="text-white text-lg font-medium hover:text-gray-300 transition-colors"
-                    >
-                        TheProj
-                    </a>
-                    <a
-                        href="#experience"
-                        className="text-white text-lg font-medium hover:text-gray-300 transition-colors"
-                    >
-                        InXp
-                    </a>
-                    <a
-                        href="#others"
-                        className="text-white text-lg font-medium hover:text-gray-300 transition-colors"
-                    >
-                        Others
-                    </a>
-                    <a
-                        href="#news"
-                        className="text-white text-lg font-medium hover:text-gray-300 transition-colors"
-                    >
-                        News
-                    </a>
-                </div>
+        <nav className="navbar mx-auto z-10 w-9/12 bg-black/30 backdrop-blur-md rounded-full px-8 py-4 shadow-amber-800 shadow-2xl flex sticky top-0 items-center justify-between">
 
-                {/* <ul className="nav-elements flex  ">
+            <div className="nav-elements flex items-center gap-x-20 text-[35px]">
+                <a
+                    href="#about"
+                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
+                >
+                    About
+                </a>
+                <a
+                    href="#contact"
+                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
+                >
+                    Contact
+                </a>
+                <a
+                    href="#projects"
+                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
+                >
+                    TheProj
+                </a>
+                <a
+                    href="#experience"
+                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
+                >
+                    InExp
+                </a>
+                <a
+                    href="#others"
+                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
+                >
+                    Others
+                </a>
+                <a
+                    href="#news"
+                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
+                >
+                    News
+                </a>
+            </div>
+
+            {/* <ul className="nav-elements flex  ">
                     <li className=" w-44 ">
                         About
                     </li>
@@ -107,13 +107,13 @@ const Navbar = () => {
                         News
                     </li>
                 </ul> */}
-            </nav>
+        </nav >
 
 
 
 
 
-        </div>
+        // </div>
     )
 }
 
