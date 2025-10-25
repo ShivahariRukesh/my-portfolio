@@ -69,13 +69,13 @@ const Navbar = () => {
                     InExp
                 </a>
                 <a
-                    href="#others"
+                    href="#maintenance"
                     className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
                 >
                     Others
                 </a>
                 <a
-                    href="#news"
+                    href="#maintenance"
                     className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
                 >
                     News
