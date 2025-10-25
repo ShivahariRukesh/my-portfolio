@@ -5,6 +5,7 @@ import Experience from "./Experience/Experience"
 import Projects from "./Projects/Projects"
 import Contact from "./Contact/Contact"
 import Navbar from "./Navbar/Navbar"
+import MaintenanceSection from "./MaintenanceSection"
 
 
 const Main = () => {
@@ -51,7 +52,7 @@ const Main = () => {
             <Experience />
             <Projects />
             <Contact />
-
+            <MaintenanceSection />
 
 
         </div>
