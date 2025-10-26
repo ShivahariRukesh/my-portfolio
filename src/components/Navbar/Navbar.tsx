@@ -1,9 +1,18 @@
 import gsap from "gsap"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 
 const Navbar = () => {
+    const [active, setActive] = useState("#about");
 
+    const navItems = [
+        { label: "About", href: "#about" },
+        { label: "Contact", href: "#contact" },
+        { label: "TheProj", href: "#projects" },
+        { label: "InExp", href: "#experience" },
+        { label: "Others", href: "#maintenance" },
+        { label: "News", href: "#maintenance" },
+    ];
     useEffect(() => {
 
         gsap.set(".navbar", { opacity: 0 })
@@ -42,72 +51,27 @@ const Navbar = () => {
         //  <div className="navbar flex items-center justify-center h-16 sticky top-0 rounded-lg bg-gray-900 w-11/12 ">
 
         <nav className="navbar mx-auto z-10 w-9/12 bg-black/30 backdrop-blur-md rounded-full px-8 py-4 shadow-amber-800 shadow-2xl flex sticky top-0 items-center justify-between">
-
             <div className="nav-elements flex items-center gap-x-20 text-[35px]">
-                <a
-                    href="#about"
-                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
-                >
-                    About
-                </a>
-                <a
-                    href="#contact"
-                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
-                >
-                    Contact
-                </a>
-                <a
-                    href="#projects"
-                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
-                >
-                    TheProj
-                </a>
-                <a
-                    href="#experience"
-                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
-                >
-                    InExp
-                </a>
-                <a
-                    href="#maintenance"
-                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
-                >
-                    Others
-                </a>
-                <a
-                    href="#maintenance"
-                    className="text-white  w-36   font-medium hover:text-gray-300 transition-colors"
-                >
-                    News
-                </a>
+                {navItems.map((item) => (
+                    <a
+                        key={item.label}
+                        href={item.href}
+                        onClick={() => setActive(item.href)}
+                        className={`relative text-white font-medium transition-colors duration-800 hover:text-gray-300
+                after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[3px] after:w-full
+                after:rounded-full after:bg-white after:origin-left after:scale-x-0 after:opacity-0
+                after:transition-all after:duration-800
+                hover:after:scale-x-100 hover:after:opacity-100
+                ${active === item.href ? "after:scale-x-100 after:opacity-100" : ""}
+              `}
+                    >
+                        {item.label}
+                    </a>
+                ))}
             </div>
+        </nav>
 
-            {/* <ul className="nav-elements flex  ">
-                    <li className=" w-44 ">
-                        About
-                    </li>
 
-                    <li className=" w-44 ">
-                        Contact
-                    </li>
-
-                    <li className=" w-44 ">
-                        The Proj
-                    </li>
-
-                    <li className=" w-44 ">
-                        I XP
-                    </li>
-
-                    <li className=" w-44 ">
-                        Objects
-                    </li>
-
-                    <li className=" w-44 ">
-                        News
-                    </li>
-                </ul> */}
-        </nav >
 
 
 
