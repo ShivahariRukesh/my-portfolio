@@ -35,10 +35,10 @@ const Navbar = () => {
             opacity: 1,
             scrollTrigger: {
                 trigger: ".navbar",
-                start: "40px center",
-                end: "bottom 40%",
+                start: "110px center",
+                end: "+=10px",
                 scrub: true,
-                // markers: true,
+                markers: true,
             }
         })
 
