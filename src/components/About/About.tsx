@@ -6,7 +6,7 @@ const About = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const dragRef = useRef<HTMLDivElement>(null);
 
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [position, setPosition] = useState({ x: '90%', y: '55%' });
     const [dragging, setDragging] = useState(false);
     const [rel, setRel] = useState<null | any>(null); // Mouse offset relative to top-left
 

@@ -17,6 +17,7 @@ const Hero = () => {
 
             gsap.set(ele.children[0].children[0], { opacity: 0 })
 
+            //Words Opacity and Upwards movement
             const trigger = gsap.to(ele.children[0].children[0], {
                 y: -520,
                 opacity: 1,
@@ -31,6 +32,7 @@ const Hero = () => {
 
             gsap.set(ele, { opacity: 0 })
 
+            //background
             const backgroundTrigger = gsap.to(ele, {
                 opacity: 1,
                 duration: 2,
@@ -40,19 +42,22 @@ const Hero = () => {
 
                 },
             });
+
+            // pinning the words
             const newTrigger = gsap.to(ele.children[0].children[0], {
 
                 ...(index === 2 && { letterSpacing: '200px', marginLeft: '150px', fontSize: '40px' }),
-
                 scrollTrigger: {
                     trigger: ele,
                     start: "top top",
-                    end: index === 2 ? "+=1550px" : "+=1300px",
+                    end: index === 2 ? "+=1650px" : "+=1250px",
+
                     //...(index === 2 ?{ pin: ele.children[0] }:{}) ,
                     pin: ele.children[0],
                     scrub: true,
                     pinSpacing: false,
                     // markers: true,
+
                 },
             });
 
@@ -74,7 +79,7 @@ const Hero = () => {
             scrollTrigger: {
                 trigger: '.action-container',
                 start: "50px top",
-                end: "+=800px",
+                end: "+=700px",
                 scrub: true,
                 // markers: true
 

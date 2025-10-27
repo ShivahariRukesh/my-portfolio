@@ -40,7 +40,7 @@ export default function HorizontalScroll() {
                             trigger: container,
                             pin: true,
                             scrub: 2,
-                            markers: true,
+                            // markers: true,
                             end: () => "+=" + scrollWidth
                         }
                     });
