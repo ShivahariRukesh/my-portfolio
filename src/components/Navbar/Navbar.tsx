@@ -38,7 +38,7 @@ const Navbar = () => {
                 start: "110px center",
                 end: "+=10px",
                 scrub: true,
-                markers: true,
+                // markers: true,
             }
         })
 
