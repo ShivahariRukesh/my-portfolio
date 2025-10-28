@@ -67,3 +67,28 @@ export default tseslint.config([
   },
 ])
 ```
+
+
+
+Things to know about deploying live:
+
+1. Here you can deploy this app two ways :
+  i. Using github page's given domain "...github.io...." 
+  ii. Using your own custom domain (Here, i used domain from .np)
+
+2. So based on the domain you have to consider the ways of building the app for      production cause the file path varies on each domain.
+
+    i. Here when building you have two different commands and based on that we configure our vite.config.ts
+
+    // Building app for custom domain
+    "build": "tsc -b && vite build",
+
+    // Building app for github domain
+    "build github" : "tsc -b && vite build --mode github", 
+    export default defineConfig(({ mode }) => ({
+        plugins: [react(), tailwindcss(),],
+          base: mode === 'github' ? '/my-portfolio/' : '/',
+        })
+        )
+
+      
