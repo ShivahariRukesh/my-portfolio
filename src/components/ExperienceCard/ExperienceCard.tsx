@@ -20,8 +20,8 @@ const Card = ({ date, companyName, location, position, backgroundImage }: Experi
                     <div className="relative bg-neutral-900 rounded-2xl overflow-hidden transition-all duration-300 group-hover:scale-105">
                         <div className="relative h-64 overflow-hidden">
                             <img
-                                src={backgroundImage}
-                                alt="Northern Lights"
+                                // src={backgroundImage}
+                                alt={backgroundImage.slice(0, -4)}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
                             <div className="absolute  inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent"></div>

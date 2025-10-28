@@ -102,7 +102,7 @@ const Hero = () => {
             <section
                 className="section-title  h-[200vh] text-9xl flex items-center justify-center "
                 style={{
-                    backgroundImage: 'url("/lights.jpg")',
+                    backgroundImage: 'url("lights.jpg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}
@@ -118,7 +118,7 @@ const Hero = () => {
 
                 className="section-title h-[200vh]  text-9xl  flex items-center justify-center"
                 style={{
-                    backgroundImage: 'url("/lightsAndCamera.jpg")',
+                    backgroundImage: 'url("lightsAndCamera.jpg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}
@@ -133,7 +133,7 @@ const Hero = () => {
                 // here moving or spacing this "ACTION" can cause overflow-x
                 className="section-title h-[200vh]  text-9xl  flex items-center justify-center "
                 style={{
-                    backgroundImage: 'url("/lightsAndCamera.jpg")',
+                    backgroundImage: 'url("lightsAndCamera.jpg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}

@@ -7,7 +7,7 @@ export const ExperienceDetails: ExperienceDetailType[] = [
         companyName: "Clock b Business Technology",
         location: "Kathmandu",
         position: "Blockchain Developer",
-        backgroundImage: '/blockchain-developer.jpg'
+        backgroundImage: 'blockchain-developer.jpg'
 
     },
 
@@ -27,7 +27,7 @@ export const ExperienceDetails: ExperienceDetailType[] = [
         companyName: "Treeleaf Technologies",
         location: "Kathmandu",
         position: "Frontend Developer",
-        backgroundImage: '/frontend-developer.png'
+        backgroundImage: 'frontend-developer.png'
 
     },
 ]

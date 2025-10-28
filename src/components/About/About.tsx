@@ -55,7 +55,7 @@ const About = () => {
 
                 <div className='row-span-2  w-full h-full flex flex-col '>
 
-                    <img src="/about_profile.jpg" alt="about_profile_picture" className=' rounded-full hover:scale-90 transition-transform duration-500' />
+                    <img src="about_profile.jpg" alt="about_profile_picture" className=' rounded-full hover:scale-90 transition-transform duration-500' />
                     <div>
                         Hello There ! I am  Rukesh Shivahari
                     </div>
