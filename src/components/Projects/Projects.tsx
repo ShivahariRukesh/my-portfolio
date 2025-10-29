@@ -78,17 +78,7 @@ export default function HorizontalScroll() {
                 </div>
             </section>
 
-            {/* Footer Section */}
-            <section className="h-screen flex items-center justify-center px-8">
-                <div className="text-center">
-                    <h2 className="text-6xl md:text-8xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                        Let's Work Together
-                    </h2>
-                    <button className="px-10 py-5 bg-white text-black rounded-full text-xl font-medium hover:bg-gray-200 transition-colors shadow-2xl">
-                        Get in Touch →
-                    </button>
-                </div>
-            </section>
+
         </div>
     );
 }
