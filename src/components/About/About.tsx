@@ -103,7 +103,7 @@ const About = () => {
             </div>
             <div
                 ref={dragRef}
-                className='relative  w-40 h-40 rounded-full cursor-grabbing bg-yellow-100 mix-blend-difference'
+                className='relative  w-56 h-56 rounded-full cursor-grabbing bg-yellow-100 mix-blend-difference'
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
