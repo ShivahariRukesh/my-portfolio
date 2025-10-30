@@ -2,9 +2,14 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(async ({ mode }) => {
 
-  plugins: [react(), tailwindcss(),],
-  base: mode === 'github' ? '/my-portfolio/' : '/',
+  return {
+    plugins: [
+      react(),
+      tailwindcss(),
+
+    ],
+    base: mode === 'github' ? '/my-portfolio/' : '/',
+  }
 })
-)
