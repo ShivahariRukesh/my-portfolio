@@ -8,10 +8,9 @@ type PositionType = {
 const About = () => {
 
 
-    // const containerRef = useRef(null);
     const profileRef = useRef(null);
     const titleRef = useRef(null);
-    const skillsRef = useRef(null);
+    const skillsRef = useRef<HTMLUListElement>(null);
     const hobbiesRef = useRef(null);
     const nameRef = useRef(null);
     const footerRef = useRef(null);
@@ -59,7 +58,7 @@ const About = () => {
             });
 
             // Skills animation - stagger effect
-            gsap.from(skillsRef.current.children, {
+            gsap.from(skillsRef.current && skillsRef.current.children, {
                 x: 100,
                 opacity: 0,
                 duration: 0.6,
