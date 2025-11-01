@@ -41,6 +41,7 @@ export default function HorizontalScroll() {
                             pin: true,
                             scrub: 2,
                             // markers: true,
+                            start: "top 5%",
                             end: () => "+=" + scrollWidth
                         }
                     });
@@ -58,7 +59,7 @@ export default function HorizontalScroll() {
     return (
         <div className="bg-black text-white">
             {/* Hero Section */}
-            <section className="h-screen flex items-center justify-center px-8">
+            <section id="projects" className="h-screen flex items-center justify-center px-8">
                 <div className="text-center">
                     <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
                         THE PROJECTS
@@ -70,13 +71,13 @@ export default function HorizontalScroll() {
             </section>
 
             {/* Horizontal Scroll Section */}
-            <section id="projects" ref={containerRef} className="h-screen overflow-hidden">
+            <div ref={containerRef} className=" h-screen overflow-hidden">
                 <div ref={scrollRef} className=" flex h-full">
                     {ProjectDetails.map((projectDetail, index) => (
                         <ProjectCard {...projectDetail} index={index} />
                     ))}
                 </div>
-            </section>
+            </div>
 
 
         </div>
