@@ -25,7 +25,7 @@ export const ProjectDetails = [
         title: "Emergency Call Application",
         techStack: ["ReactNative", "NodeJs", "MongoDB"],
         description: " Engineered a critical Emergency Call application leveraging ReactNative, Express.js, MongoDB to facilitate rapid communication in urgent situations.",
-        githubLink: "https://github.com/ShivahariRukesh/Pneumonia_Detection_System",
+        githubLink: "https://github.com/ShivahariRukesh/emergency-call-app",
         image: "emergency-call.jpg",
 
         color: "from-purple-900 to-pink-900"
@@ -48,7 +48,7 @@ export const ProjectDetails = [
         title: "Vision Board",
         techStack: ["React", "Laravel"],
         description: "It is a project management web application where an organization can effectively organize projects, breakdown tasks, allocate responsibilities, monitor progress, and produce detailed reports.",
-        githubLink: "https://github.com/ShivahariRukesh/",
+        githubLink: "https://github.com/ShivahariRukesh/vision-board.git",
         image: "vision-board.png",
 
         color: "from-blue-900 to-gray-500"
@@ -68,23 +68,11 @@ export const ProjectDetails = [
 
     },
 
-
-    {
-        title: "Emergency Call Application",
-        techStack: ["ReactNative", "NodeJs", "MongoDB"],
-        description: " Engineered a critical Emergency Call application leveraging ReactNative, Express.js, MongoDB to facilitate rapid communication in urgent situations.",
-        githubLink: "https://github.com/ShivahariRukesh/Pneumonia_Detection_System",
-        image: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=800&h=1000&fit=crop",
-
-        color: "from-purple-900 to-pink-900"
-
-    },
-
     {
         title: "Edearn Web Application",
         techStack: ["React", "NodeJs", "MongoDB"],
         description: "A learning platform that enriches individuals knowledge with competitive multiplayer learning games. Especially for students and children to give them the good use of the internet",
-        githubLink: "https://github.com/ShivahariRukesh/Pneumonia_Detection_System",
+        githubLink: "https://github.com/ShivahariRukesh/EdEarn",
         image: "edearn.png",
 
         color: "from-gray-200 to-gray-900"
