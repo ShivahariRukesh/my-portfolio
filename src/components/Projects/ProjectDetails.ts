@@ -36,8 +36,8 @@ export const ProjectDetails = [
         title: "Web Chat Application",
         techStack: ["React", "NodeJs", "MongoDB"],
         description: "Developed a full-stack web chat application utilizing React, Express, MongoDB. This platform enables users to seamlessly create accounts, log in, and engage in real-time communication.",
-        githubLink: "https://github.com/ShivahariRukesh/web-chat/tree/master",
-        image: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800&h=1000&fit=crop",
+        githubLink: "https://github.com/ShivahariRukesh/web-chat",
+        image: "web-chat.jpg",
 
         color: "from-blue-900 to-cyan-900"
 
