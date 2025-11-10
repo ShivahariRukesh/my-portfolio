@@ -135,7 +135,7 @@ const About = () => {
         if (!containerRef.current || !dragRef.current) return;
 
         const dragRect = dragRef.current.getBoundingClientRect();
-        const parentRect = containerRef.current.getBoundingClientRect();
+        // const parentRect = containerRef.current.getBoundingClientRect();
 
         setDragging(true);
         setRel({
@@ -166,7 +166,7 @@ const About = () => {
     };
 
     // Helper: returns spotlight mask style for any container
-    const getSpotlightStyle = (ref: React.RefObject<HTMLDivElement | HTMLElement>) => {
+    const getSpotlightStyle = (ref: React.RefObject<HTMLElement | null>) => {
         if (!ref.current || !containerRef.current) return {};
 
         const containerRect = containerRef.current.getBoundingClientRect();
