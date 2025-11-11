@@ -99,17 +99,33 @@ const About = () => {
 
             // Floating animation for profile image
             gsap.to(profileRef.current, {
-                y: -20,
+                y: -40,
                 duration: 2,
                 repeat: -1,
                 yoyo: true,
                 ease: 'power1.inOut',
                 delay: 1.5
             });
+            console.log()
+
+            if (dragRef.current?.firstChild) {
+
+                gsap.to(dragRef.current?.firstChild, {
+                    y: -20,
+                    duration: 1,
+                    repeat: -1,
+                    yoyo: true,
+
+                })
+            }
 
         }, containerRef);
 
-        return () => ctx.revert();
+
+
+        return () => {
+            ctx.revert()
+        };
     }, []);
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -184,7 +200,23 @@ const About = () => {
         };
     };
 
+    const handleRemoveDragRefChild = () => {
+        const child = dragRef.current?.querySelector('p')
+        if (child) {
+            gsap.to(child, {
+                opacity: 0,
+                duration: 1.5,
+                ease: 'back.out',
 
+
+                onComplete: () => {
+
+                    child.remove()
+                }
+            })
+
+        }
+    }
 
     return (
         <section
@@ -297,7 +329,13 @@ const About = () => {
                     userSelect: 'none',
                     padding: 10
                 }}
-            />
+                onMouseEnter={() => { handleRemoveDragRefChild() }}
+            >
+                <p className='flex  justify-center text-4xl mt-[50%] 
+              font-semibold text-black 
+             tracking-wide select-none'>
+                    Drag me!!</p>
+            </div>
         </section>
     );
 };
