@@ -5,7 +5,7 @@ import type { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExperienceDetails } from "./ExperienceDetails";
 
 const Experience = () => {
-    const cardRef = useRef<HTMLDivElement>(null); // ✅ Typed correctly
+    const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
 

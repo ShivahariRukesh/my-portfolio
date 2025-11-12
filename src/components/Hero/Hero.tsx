@@ -17,7 +17,6 @@ const Hero = () => {
 
             gsap.set(ele.children[0].children[0], { opacity: 0 })
 
-            //Words Opacity and Upwards movement
             const trigger = gsap.to(ele.children[0].children[0], {
                 y: -520,
                 opacity: 1,
