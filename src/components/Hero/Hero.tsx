@@ -31,7 +31,6 @@ const Hero = () => {
 
             gsap.set(ele, { opacity: 0 })
 
-            //background
             const backgroundTrigger = gsap.to(ele, {
                 opacity: 1,
                 duration: 2,
