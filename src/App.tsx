@@ -9,12 +9,28 @@ import Main from './components/Main';
 import { metadata } from './config/metadata';
 import SEO from './components/Seo';
 import InitialLoadPage from './components/InitialPageLoader/InitialPageLoader';
+import ResponsiveGate from './components/ResponsiveGate';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
 
   const [loading, setLoading] = useState(true);
+
+  const [isDesktop, setIsDesktop] = useState(false);
+
+
+
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
+  }, []);
+
 
   useEffect(() => {
     document.dispatchEvent(new Event('render-complete'))
@@ -37,17 +53,28 @@ function App() {
 
     return () => window.removeEventListener("load", handleLoad);
   }, []);
+
+
+
+
+  if (loading) {
+    return (
+      <InitialLoadPage
+        onComplete={() => {
+          setLoading(false);
+        }}
+      />
+    )
+  }
+
+  if (!isDesktop) {
+
+    return <ResponsiveGate />
+  }
+
+
   return (
     <>
-
-
-      {loading && (
-        <InitialLoadPage
-          onComplete={() => {
-            setLoading(false);
-          }}
-        />
-      )}
       <SEO
         title={metadata.title}
         description={metadata.description}
