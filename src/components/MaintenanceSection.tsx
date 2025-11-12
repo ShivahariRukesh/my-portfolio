@@ -23,7 +23,6 @@ const MaintenanceSection: React.FC = () => {
       fadeInUp(el, index * 150);
     });
 
-    // Floating animation for icons
     iconRefs.current.forEach((icon: HTMLDivElement | null, index: number) => {
       if (icon) {
         icon.animate([

@@ -14,17 +14,14 @@ const ProjectCard = ({ index, title, image, githubLink, color, description }: Pr
             className="project-card flex-shrink-0 w-screen h-full flex items-center justify-center px-12"
         >
             <div className=" relative w-full max-w-6xl h-[80vh] overflow-hidden rounded-3xl group cursor-pointer">
-                {/* Image */}
                 <img
                     src={image}
                     alt={title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
-                {/* Gradient Overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-t ${color} opacity-60 group-hover:opacity-40 transition-opacity duration-500`} />
 
-                {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-10">
                     <div className="transform transition-transform duration-500 group-hover:translate-y-[-10px]">
                         <p className="text-sm uppercase tracking-widest text-gray-300 mb-3 truncate">
@@ -42,13 +39,6 @@ const ProjectCard = ({ index, title, image, githubLink, color, description }: Pr
                             </a>
                         </div>
                     </div>
-                </div>
-
-                {/* Number Badge */}
-                <div className="absolute top-8 right-8 w-20 h-20 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white border-opacity-30">
-                    <span className="text-3xl font-bold">
-                        {String(index + 1).padStart(2, '0')}
-                    </span>
                 </div>
             </div>
         </div>

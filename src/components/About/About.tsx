@@ -17,7 +17,6 @@ const About = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Profile image animation
             gsap.from(profileRef.current, {
                 scale: 0,
                 rotation: -180,
@@ -31,7 +30,6 @@ const About = () => {
                 }
             });
 
-            // Name animation
             gsap.from(nameRef.current, {
                 y: 50,
                 opacity: 0,
@@ -44,7 +42,6 @@ const About = () => {
                 }
             });
 
-            // Title animation with text reveal
             gsap.from(titleRef.current, {
                 x: -100,
                 opacity: 0,
@@ -57,7 +54,6 @@ const About = () => {
                 }
             });
 
-            // Skills animation - stagger effect
             gsap.from(skillsRef.current && skillsRef.current.children, {
                 x: 100,
                 opacity: 0,
@@ -71,7 +67,6 @@ const About = () => {
                 }
             });
 
-            // Hobbies animation
             gsap.from(hobbiesRef.current, {
                 y: 100,
                 opacity: 0,
@@ -84,7 +79,6 @@ const About = () => {
                 }
             });
 
-            // Footer animation
             gsap.from(footerRef.current, {
                 opacity: 0,
                 scale: 0.8,
@@ -97,7 +91,6 @@ const About = () => {
                 }
             });
 
-            // Floating animation for profile image
             gsap.to(profileRef.current, {
                 y: -40,
                 duration: 2,
@@ -181,7 +174,6 @@ const About = () => {
         setDragging(false);
     };
 
-    // Helper: returns spotlight mask style for any container
     const getSpotlightStyle = (ref: React.RefObject<HTMLElement | null>) => {
         if (!ref.current || !containerRef.current) return {};
 

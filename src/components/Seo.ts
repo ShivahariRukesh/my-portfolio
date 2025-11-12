@@ -1,4 +1,3 @@
-// src/components/SEO.jsx
 import { useEffect } from 'react';
 import type { SeoType } from '../types/seoType';
 
@@ -10,12 +9,10 @@ export default function SEO({
     url = window.location.href
 }: SeoType) {
     useEffect(() => {
-        // Update title
         if (title) {
             document.title = title;
         }
 
-        // Update or create meta tags
         const updateMetaTag = (name: string, content: string, isProperty = false) => {
             const attribute = isProperty ? 'property' : 'name';
             let element = document.querySelector(`meta[${attribute}="${name}"]`);
@@ -29,7 +26,6 @@ export default function SEO({
             element.setAttribute('content', content);
         };
 
-        // Standard meta tags
         if (description) {
             updateMetaTag('description', description);
         }
@@ -38,7 +34,6 @@ export default function SEO({
             updateMetaTag('keywords', keywords.join(', '));
         }
 
-        // Open Graph tags
         if (title) {
             updateMetaTag('og:title', title, true);
         }

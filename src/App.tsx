@@ -24,10 +24,9 @@ function App() {
     const handleLoad = () => {
       // Small delay to ensure smoothness
       setTimeout(() => {
-        // Dispatch custom event to trigger GSAP exit animation
         const event = new Event("loaderExit");
         window.dispatchEvent(event);
-      }, 3000); // keep loader visible briefly after load
+      }, 3000);
     };
 
     if (document.readyState === "complete") {
