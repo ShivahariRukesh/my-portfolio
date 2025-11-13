@@ -1,9 +1,8 @@
 import gsap from "gsap"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 
 const Navbar = () => {
-    const [active, setActive] = useState("#about");
 
     const navItems = [
         { label: "About", href: "#about" },
@@ -56,13 +55,11 @@ const Navbar = () => {
                     <a
                         key={item.label}
                         href={item.href}
-                        onClick={() => setActive(item.href)}
                         className={`relative text-white font-medium transition-colors duration-800 hover:text-gray-300
                 after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:h-[3px] after:w-full
                 after:rounded-full after:bg-white after:origin-left after:scale-x-0 after:opacity-0
                 after:transition-all after:duration-800
                 hover:after:scale-x-100 hover:after:opacity-100
-                ${active === item.href ? "after:scale-x-100 after:opacity-100" : ""}
               `}
                     >
                         {item.label}
