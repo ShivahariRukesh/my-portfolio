@@ -91,4 +91,12 @@ Things to know about deploying live:
         })
         )
 
+
+#Cli command : 
+#"gh-pages -d dist"
+
+  This uses the gh-pages CLI (from the gh-pages npm package(  "gh-pages": "^6.3.0")) to publish your build output to GitHub Pages.
+
+  The -d flag stands for directory.
+  It tells the gh-pages tool which folder to deploy.
       
