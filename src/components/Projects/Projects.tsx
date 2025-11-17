@@ -58,16 +58,13 @@ export default function HorizontalScroll() {
 
     return (
         <div className="bg-black text-white">
+
             {/* Hero Section */}
-            <section id="projects" className="h-screen flex items-center justify-center px-8">
-                <div className="text-center">
-                    <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                        THE PROJECTS
-                    </h1>
-                    <p className="text-xl md:text-2xl text-gray-400">
-                        Scroll down to explore horizontally
-                    </p>
-                </div>
+            <section id="projects" className=" text-center text-6xl px-8">
+                <hr className="bg-white w-full " />
+                <p className='py-12'>
+                    The Projects
+                </p>
             </section>
 
             {/* Horizontal Scroll Section */}
