@@ -31,15 +31,17 @@ function Contact() {
         { icon: FaFacebook, label: 'Twitter', href: '#' }
     ];
 
+
     return (
-        <section id="contact" className="min-h-screen bg-neutral-900 py-24 px-6">
+        <section id="contact" className="min-h-screen bg-black py-6 px-6">
+            <hr className="bg-white w-full mb-5" />
+
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="mb-20">
                     <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-4 tracking-tight">
                         Let's Talk
                     </h2>
-                    <div className="w-16 h-0.5 bg-neutral-100"></div>
                 </div>
 
                 {/* Contact Grid */}

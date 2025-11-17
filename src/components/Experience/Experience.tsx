@@ -22,8 +22,9 @@ const Experience = () => {
         Array.from(experienceTapeChildren).forEach((ele, index) => {
             gsap.set(ele, { opacity: 0 })
 
+
             const trigger = gsap.to(ele, {
-                x: index % 2 === 0 ? -200 : 200,
+                x: 200,
                 opacity: 1,
                 duration: 0.8,
                 scrollTrigger: {
@@ -43,26 +44,55 @@ const Experience = () => {
         }
     }, []);
 
-    const handlePlayTV = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        console.log(e.currentTarget.parentElement?.lastChild)
+    const handlePlayTV = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isClickedTape: boolean) => {
         const triggeredCurrentDiv = e.currentTarget
-        const triggeredCurrentDivLastSibiling = e.currentTarget.parentElement?.lastChild as HTMLDivElement
-        gsap.to(triggeredCurrentDiv, {
-            x: -400,
-            opacity: 0,
-            duration: 0.8,
-        })
+        let triggeredCurrentDivSibling;
+        if (isClickedTape) {
+            console.log(e.currentTarget.parentElement?.lastChild)
 
-        gsap.to(triggeredCurrentDivLastSibiling, {
+            triggeredCurrentDivSibling = e.currentTarget.parentElement?.lastChild as HTMLDivElement
+        } else {
+            console.log(e.currentTarget.parentElement?.firstChild)
 
-            x: -400,
-            opacity: 1,
-            duration: 1,
-        })
+            triggeredCurrentDivSibling = e.currentTarget.parentElement?.firstChild as HTMLDivElement
+        }
+
+        console.log(isClickedTape)
+        if (isClickedTape) {
+
+            gsap.to(triggeredCurrentDiv, {
+                x: -400,
+                opacity: 0,
+                duration: 0.8,
+            })
+
+            gsap.to(triggeredCurrentDivSibling, {
+
+                x: -400,
+                opacity: 1,
+                duration: 1,
+            })
+        } else {
+
+
+            gsap.to(triggeredCurrentDiv, {
+                x: 0,
+                opacity: 0,
+                duration: 0.8,
+            })
+
+            gsap.to(triggeredCurrentDivSibling, {
+
+                x: 0,
+                opacity: 1,
+                duration: 1,
+            })
+        }
     }
 
     return (
-        <section id="experience" className="h-[200vh] w-full p-16 ">
+        <section id="experience" className="bg-black h-[200vh] w-full p-16 ">
+            <hr className="bg-white w-full" />
             <div
                 className="flex flex-col justify-around items-center h-full w-full"
             >
@@ -75,6 +105,7 @@ const Experience = () => {
                 }
 
             </div>
+
         </section>
     );
 };

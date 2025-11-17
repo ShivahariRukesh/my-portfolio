@@ -39,7 +39,7 @@ const MaintenanceSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="maintenance" className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-600 to-slate-900 flex items-center justify-center p-4 overflow-hidden relative">
+    <section id="maintenance" className="min-h-screen bg-gradient-to-br from-black via-gray-600 to-black flex items-center justify-center p-4 overflow-hidden relative">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
