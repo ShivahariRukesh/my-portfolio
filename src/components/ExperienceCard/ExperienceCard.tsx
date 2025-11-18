@@ -2,7 +2,7 @@ import type { ExperienceDetailType } from '../../types/experienceDetail'
 import './ExperienceCard.css'
 
 type ExperienceCardProps = ExperienceDetailType & { handlePlayTV: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isClickedTape: boolean) => void }
-const ExperienceCard = ({ date, companyName, location, position, handlePlayTV }: ExperienceCardProps) => {
+const ExperienceCard = ({ date, companyName, location, position, description, handlePlayTV }: ExperienceCardProps) => {
 
 
 
@@ -145,7 +145,7 @@ const ExperienceCard = ({ date, companyName, location, position, handlePlayTV }:
                 onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => handlePlayTV(e, false)}
 
             >
-
+                <p>{description}</p>
 
 
             </div>

@@ -4,6 +4,7 @@ export type ExperienceDetailType = {
     companyName: string,
     location: string,
     position: string,
+    description: string,
     backgroundImage: string,
 }
 

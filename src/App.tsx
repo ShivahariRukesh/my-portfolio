@@ -82,7 +82,7 @@ function App() {
         image={`${metadata.siteUrl}${metadata.image}`}
         url={metadata.siteUrl}
       />
-      {/* <Hero /> */}
+      <Hero />
       <Main />
     </>
 

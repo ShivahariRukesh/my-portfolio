@@ -57,7 +57,6 @@ const Experience = () => {
             triggeredCurrentDivSibling = e.currentTarget.parentElement?.firstChild as HTMLDivElement
         }
 
-        console.log(isClickedTape)
         if (isClickedTape) {
 
             gsap.to(triggeredCurrentDiv, {
@@ -71,9 +70,10 @@ const Experience = () => {
                 x: -400,
                 opacity: 1,
                 duration: 1,
+                delay: 0.5
             })
-        } else {
 
+        } else {
 
             gsap.to(triggeredCurrentDiv, {
                 x: 0,
@@ -82,7 +82,6 @@ const Experience = () => {
             })
 
             gsap.to(triggeredCurrentDivSibling, {
-
                 x: 0,
                 opacity: 1,
                 duration: 1,
