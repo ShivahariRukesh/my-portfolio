@@ -1,8 +1,8 @@
 import type { ExperienceDetailType } from '../../types/experienceDetail'
 import './ExperienceCard.css'
 
-type ExperienceCardProps = ExperienceDetailType & { handlePlayTV: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isClickedTape: boolean) => void }
-const ExperienceCard = ({ date, companyName, location, position, description, handlePlayTV }: ExperienceCardProps) => {
+type ExperienceCardProps = ExperienceDetailType & { handlePlayTV: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isClickedTape: boolean, index: number) => void, setDescRef: (el: HTMLParagraphElement | null, index: number) => void, index: number }
+const ExperienceCard = ({ date, companyName, location, position, description, handlePlayTV, setDescRef, index }: ExperienceCardProps) => {
 
 
 
@@ -51,7 +51,7 @@ const ExperienceCard = ({ date, companyName, location, position, description, ha
 
 
             <div className="experience-tape relative w-[600px] h-[380px] border-t-8 rounded-r-2xl border-amber-900"
-                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => handlePlayTV(e, true)}
+                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => handlePlayTV(e, true, index)}
             >
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/95 to-black/95 rounded-md shadow-2xl border-2 border-gray-700">
 
@@ -142,10 +142,12 @@ const ExperienceCard = ({ date, companyName, location, position, description, ha
 
             <div
                 className="experience-tv   w-[600px] h-[380px] bg-gray-500 rounded-2xl border-amber-900"
-                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => handlePlayTV(e, false)}
+                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => handlePlayTV(e, false, index)}
 
             >
-                <p>{description}</p>
+                <p
+                    ref={(el) => setDescRef(el, index)}
+                >{description}</p>
 
 
             </div>
