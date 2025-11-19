@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import gsap from "gsap";
 import type { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +7,7 @@ import { ExperienceDetails } from "./ExperienceDetails";
 
 const Experience = () => {
 
+    const descRefs = useRef<HTMLParagraphElement[]>([])
     useEffect(() => {
 
         const triggers: ScrollTrigger[] = []
@@ -14,12 +15,11 @@ const Experience = () => {
         const experienceTVChildren = document.getElementsByClassName('experience-tv')
 
         // const experienceTapeChildren = cardRef.current?.experienceTapeChildren;
-        console.log(experienceTapeChildren)
         if (!experienceTapeChildren) return;
         gsap.set(experienceTVChildren, { opacity: 0 })
 
 
-        Array.from(experienceTapeChildren).forEach((ele, index) => {
+        Array.from(experienceTapeChildren).forEach((ele) => {
             gsap.set(ele, { opacity: 0 })
 
 
@@ -44,7 +44,12 @@ const Experience = () => {
         }
     }, []);
 
-    const handlePlayTV = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isClickedTape: boolean) => {
+
+    const setDescRef = (el: HTMLParagraphElement | null, index: number) => {
+        if (el) descRefs.current[index] = el;
+    };
+
+    const handlePlayTV = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isClickedTape: boolean, index: number) => {
         const triggeredCurrentDiv = e.currentTarget
         let triggeredCurrentDivSibling;
         if (isClickedTape) {
@@ -59,19 +64,42 @@ const Experience = () => {
 
         if (isClickedTape) {
 
+            let description = descRefs.current[index]
+            const descriptionText = description?.innerText
+            description.innerHTML = ""
+
+            descriptionText?.split("").forEach((character) => {
+                const span = document.createElement("span")
+                span.innerText = character
+                span.style.opacity = "0"
+                description?.appendChild(span)
+            })
+
+
+
+            const t1 = gsap.timeline()
+
             gsap.to(triggeredCurrentDiv, {
                 x: -400,
                 opacity: 0,
                 duration: 0.8,
             })
 
-            gsap.to(triggeredCurrentDivSibling, {
 
+            t1.to(triggeredCurrentDivSibling, {
                 x: -400,
                 opacity: 1,
                 duration: 1,
                 delay: 0.5
             })
+            t1.to(description.children, {
+                opacity: 1,
+                duration: 0.05,
+                stagger: 0.05,
+                ease: "power1.inOut",
+                delay: 0.3
+            })
+
 
         } else {
 
@@ -97,7 +125,7 @@ const Experience = () => {
             >
                 {ExperienceDetails.map((detail, index) => {
 
-                    return <ExperienceCard key={index} {...detail} handlePlayTV={handlePlayTV} />
+                    return <ExperienceCard key={index} {...detail} handlePlayTV={handlePlayTV} setDescRef={setDescRef} index={index} />
 
                 }
                 )
