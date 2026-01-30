@@ -24,13 +24,13 @@ export const ExperienceDetails: ExperienceDetailType[] = [
     },
 
 
-    {
-        date: "May 2024 - Oct 2024",
-        companyName: "Treeleaf Technologies",
-        location: "Kathmandu",
-        position: "Frontend Developer",
-        description: "Implemented different charts and graphs like pie charts, graphs, heatmaps and many others to visually represent the data and information on the screen. Developed highly responsive web layouts and pages, enhancing the user experience by using various React libraries such as Ant Design (antd) and Styled Components. Gained the first time hands-on experience with real-world, production-level workflows, ensuring the application of best practices and effective collaboration in a professional development environment.",
-        backgroundImage: 'frontend-developer.png'
+    // {
+    //     date: "May 2024 - Oct 2024",
+    //     companyName: "Treeleaf Technologies",
+    //     location: "Kathmandu",
+    //     position: "Frontend Developer",
+    //     description: "Implemented different charts and graphs like pie charts, graphs, heatmaps and many others to visually represent the data and information on the screen. Developed highly responsive web layouts and pages, enhancing the user experience by using various React libraries such as Ant Design (antd) and Styled Components. Gained the first time hands-on experience with real-world, production-level workflows, ensuring the application of best practices and effective collaboration in a professional development environment.",
+    //     backgroundImage: 'frontend-developer.png'
 
-    },
+    // },
 ]
