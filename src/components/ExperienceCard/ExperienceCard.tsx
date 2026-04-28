@@ -20,13 +20,13 @@ const ExperienceCard = ({
     index,
 }: ExperienceCardProps) => {
     return (
-        <div className="experience-pair">
+        <div className="experience-pair relative w-[560px] h-[360px]">
 
             {/* ═══════════════════════════════════════════════════
           VHS CASSETTE TAPE
       ═══════════════════════════════════════════════════ */}
             <div
-                className="experience-tape relative cursor-pointer select-none"
+                className="experience-tape absolute inset-0 cursor-pointer select-none"
                 style={{ width: 560, height: 360 }}
                 onClick={(e) => handlePlayTV(e, true, index)}
             >
@@ -213,7 +213,7 @@ const ExperienceCard = ({
           CRT TELEVISION
       ═══════════════════════════════════════════════════ */}
             <div
-                className="experience-tv relative cursor-pointer select-none"
+                className="experience-tv absolute inset-0 cursor-pointer select-none"
                 style={{ width: 560, height: 360 }}
                 onClick={(e) => handlePlayTV(e, false, index)}
             >

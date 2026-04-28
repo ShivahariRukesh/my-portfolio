@@ -5,6 +5,5 @@ export type ExperienceDetailType = {
     location: string,
     position: string,
     description: string,
-    backgroundImage: string,
 }
 

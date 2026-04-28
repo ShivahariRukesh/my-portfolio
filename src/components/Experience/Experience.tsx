@@ -6,25 +6,22 @@ import { ExperienceDetails } from './ExperienceDetails'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Track which cards are currently "playing" so we block mid-animation clicks
 const playingState: Record<number, boolean> = {}
 
 const Experience = () => {
     const descRefs = useRef<HTMLParagraphElement[]>([])
     const crtRefs = useRef<HTMLDivElement[]>([])
 
-    /* ──────────────────────────────────────────────────────────
-       SCROLL-TRIGGERED ENTRANCE
-    ────────────────────────────────────────────────────────── */
     useEffect(() => {
         const tapes = document.getElementsByClassName('experience-tape')
         const tvs = document.getElementsByClassName('experience-tv')
 
-        gsap.set(tvs, { opacity: 0, x: 60 })
+        // TV starts OFFSCREEN RIGHT
+        gsap.set(tvs, { opacity: 0, x: 700 })
 
         const triggers: ScrollTrigger[] = []
 
-        Array.from(tapes).forEach((el, i) => {
+        Array.from(tapes).forEach((el) => {
             gsap.set(el, { opacity: 0, x: -80 })
 
             const t = gsap.to(el, {
@@ -43,24 +40,21 @@ const Experience = () => {
         return () => triggers.forEach((t) => t.kill())
     }, [])
 
-    /* ──────────────────────────────────────────────────────────
-       REF SETTERS
-    ────────────────────────────────────────────────────────── */
     const setDescRef = (el: HTMLParagraphElement | null, index: number) => {
         if (el) descRefs.current[index] = el
     }
+
     const setCrtRef = (el: HTMLDivElement | null, index: number) => {
         if (el) crtRefs.current[index] = el
     }
 
-    /* ──────────────────────────────────────────────────────────
-       HELPERS — typewriter text
-    ────────────────────────────────────────────────────────── */
     const prepareTypewriter = (index: number) => {
         const desc = descRefs.current[index]
         if (!desc) return
+
         const text = desc.innerText
         desc.innerHTML = ''
+
         text.split('').forEach((ch) => {
             const span = document.createElement('span')
             span.innerText = ch
@@ -72,6 +66,7 @@ const Experience = () => {
     const animateTypewriter = (tl: gsap.core.Timeline, index: number, delay = 0) => {
         const desc = descRefs.current[index]
         if (!desc) return
+
         tl.to(
             desc.children,
             {
@@ -80,29 +75,29 @@ const Experience = () => {
                 stagger: 0.025,
                 ease: 'none',
             },
-            delay >= 0 ? `>+${delay}` : `>${delay}`
+            `>+${delay}`
         )
     }
 
-    /* ──────────────────────────────────────────────────────────
-       MAIN INTERACTION HANDLER
-    ────────────────────────────────────────────────────────── */
     const handlePlayTV = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         isClickedTape: boolean,
         index: number
     ) => {
-        // Block spam clicks mid-animation
         if (playingState[index]) return
         playingState[index] = true
 
-        const tape = e.currentTarget.parentElement?.querySelector('.experience-tape') as HTMLDivElement
-        const tv = e.currentTarget.parentElement?.querySelector('.experience-tv') as HTMLDivElement
+        const parent = e.currentTarget.parentElement
+        const tape = parent?.querySelector('.experience-tape') as HTMLDivElement
+        const tv = parent?.querySelector('.experience-tv') as HTMLDivElement
         const crt = crtRefs.current[index]
 
-        if (!tape || !tv) { playingState[index] = false; return }
+        if (!tape || !tv) {
+            playingState[index] = false
+            return
+        }
 
-        /* ── TAPE → TV  (insert tape, power on TV) ──── */
+        // 🎬 TAPE → TV
         if (isClickedTape) {
             prepareTypewriter(index)
 
@@ -110,89 +105,84 @@ const Experience = () => {
                 onComplete: () => { playingState[index] = false },
             })
 
-            // 1. Tape: quick squish inward then slide off left
+            // Tape exits LEFT
             tl.to(tape, {
-                scaleX: 0.94,
-                scaleY: 0.96,
-                duration: 0.1,
-                ease: 'power2.in',
-            })
-            tl.to(tape, {
-                x: -640,
-                scaleX: 0.88,
+                x: -700,
                 opacity: 0,
-                duration: 0.55,
+                scale: 0.9,
+                duration: 0.6,
                 ease: 'power3.in',
-            }, '>-0.04')
+            })
 
-            // 2. TV slides in from the right
-            tl.set(tv, { x: 120, opacity: 0, scale: 1 })
-            tl.to(tv, {
-                x: 0,
-                opacity: 1,
-                duration: 0.65,
-                ease: 'expo.out',
-            }, '>-0.1')
+            // TV enters from RIGHT (same time)
+            tl.fromTo(tv,
+                { x: 700, opacity: 0, scale: 1.1 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.7,
+                    ease: 'expo.out',
+                },
+                "<"
+            )
 
-            // 3. CRT power-on flash
+            // CRT ON
             tl.call(() => {
                 crt?.classList.remove('power-off')
                 crt?.classList.add('power-on')
                 tv.classList.add('is-playing')
-                // force reflow so animation re-triggers if needed
                 void crt?.offsetWidth
-            }, [], '<+0.05')
+            }, [], '<+0.1')
 
-            // 4. Remove power-on class after animation settles
             tl.call(() => {
                 setTimeout(() => crt?.classList.remove('power-on'), 700)
-            }, [], '>+0.1')
+            })
 
-            // 5. Typewriter
-            animateTypewriter(tl, index, 0.15)
+            animateTypewriter(tl, index, 0.2)
+        }
 
-            /* ── TV → TAPE  (eject tape, power off TV) ─── */
-        } else {
+        // 🎬 TV → TAPE
+        else {
             const tl = gsap.timeline({
                 onComplete: () => { playingState[index] = false },
             })
 
-            // 1. CRT power-off collapse
             tl.call(() => {
                 crt?.classList.remove('power-on')
                 crt?.classList.add('power-off')
                 tv.classList.remove('is-playing')
             })
 
-            // 2. TV fades + slides right while screen collapses
+            // TV exits RIGHT
             tl.to(tv, {
-                x: 120,
+                x: 700,
                 opacity: 0,
+                scale: 1.1,
                 duration: 0.5,
                 ease: 'power3.in',
-            }, '>+0.15')
+            }, '>+0.1')
 
-            // 3. Tape bounces back in from left with spring ease
-            tl.set(tape, { x: -640, opacity: 0, scaleX: 0.88, scaleY: 0.96 })
-            tl.to(tape, {
-                x: 0,
-                opacity: 1,
-                scaleX: 1,
-                scaleY: 1,
-                duration: 0.7,
-                ease: 'back.out(1.4)',
-            }, '>-0.05')
+            // Tape enters from LEFT
+            tl.fromTo(tape,
+                { x: -700, opacity: 0, scale: 0.9 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.7,
+                    ease: 'back.out(1.4)',
+                },
+                "<"
+            )
 
-            // 4. Reset CRT class after it's off screen
             tl.call(() => {
                 crt?.classList.remove('power-off')
-                // restore description text
                 const desc = descRefs.current[index]
                 if (desc) {
-                    const original = ExperienceDetails[index]?.description ?? ''
-                    desc.innerHTML = original
+                    desc.innerHTML = ExperienceDetails[index]?.description ?? ''
                 }
-            }, [], '<+0.3')
+            })
         }
     }
 
@@ -200,18 +190,11 @@ const Experience = () => {
         <section id="experience" className="bg-black min-h-[200vh] w-full p-16">
             <hr className="bg-white w-full mb-2 opacity-20" />
 
-            <h2 style={{
-                fontFamily: "'Orbitron', sans-serif",
-                fontSize: 13,
-                letterSpacing: '0.4em',
-                color: '#555',
-                marginBottom: '4rem',
-                textTransform: 'uppercase',
-            }}>
-        // Experience
+            <h2 className="mb-16 text-xs tracking-[0.4em] text-gray-500 uppercase font-[Orbitron]">
+                // Experience
             </h2>
 
-            <div className="flex flex-col justify-around items-center gap-20 w-full">
+            <div className="flex flex-col items-center gap-20 w-full">
                 {ExperienceDetails.map((detail, index) => (
                     <ExperienceCard
                         key={index}
