@@ -3,18 +3,45 @@ import { TechSkillList } from './TechSkillList';
 import gsap from 'gsap';
 
 type PositionType = {
-    x: number,
-    y: number
-}
+    x: number;
+    y: number;
+};
 
 const About = () => {
-    const profileRef = useRef(null);
-    const titleRef = useRef(null);
-    const skillsRef = useRef<HTMLUListElement>(null);
-    const hobbiesRef = useRef(null);
-    const nameRef = useRef(null);
-    const footerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const dragRef = useRef<HTMLDivElement>(null);
 
+    const profileRef = useRef<HTMLImageElement>(null);
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const skillsRef = useRef<HTMLUListElement>(null);
+    const hobbiesRef = useRef<HTMLDivElement>(null);
+    const nameRef = useRef<HTMLDivElement>(null);
+    const footerRef = useRef<HTMLDivElement>(null);
+    const titleContainerRef = useRef<HTMLDivElement>(null);
+
+    const [position, setPosition] = useState<PositionType>({ x: 0, y: 0 });
+    const [dragging, setDragging] = useState(false);
+    const [rel, setRel] = useState<{ x: number; y: number } | null>(null);
+    const [spotlightOn, setSpotlightOn] = useState(true);
+    const [isFading, setIsFading] = useState(false);
+    const [hasHovered, setHasHovered] = useState(false);
+
+    /* ─────────────────────────────
+       INITIAL POSITION
+    ───────────────────────────── */
+    useEffect(() => {
+        if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            setPosition({
+                x: rect.width * 0.8,
+                y: rect.height * 0.5,
+            });
+        }
+    }, []);
+
+    /* ─────────────────────────────
+       ANIMATIONS
+    ───────────────────────────── */
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.from(profileRef.current, {
@@ -26,366 +53,282 @@ const About = () => {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: 'top center',
-                    toggleActions: 'play none none reverse'
-                }
-            });
-
-            gsap.from(nameRef.current, {
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                delay: 0.5,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: 'top center',
-                    toggleActions: 'play none none reverse'
-                }
+                },
             });
 
             gsap.from(titleRef.current, {
                 x: -100,
                 opacity: 0,
                 duration: 1,
-                delay: 0.3,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: 'top center',
-                    toggleActions: 'play none none reverse'
-                }
             });
 
-            gsap.from(skillsRef.current && skillsRef.current.children, {
-                x: 100,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.15,
-                delay: 0.5,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: 'top center',
-                    toggleActions: 'play none none reverse'
-                }
-            });
-
-            gsap.from(hobbiesRef.current, {
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                delay: 0.8,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: 'top center',
-                    toggleActions: 'play none none reverse'
-                }
-            });
-
-            gsap.from(footerRef.current, {
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.8,
-                delay: 1.2,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: 'top center',
-                    toggleActions: 'play none none reverse'
-                }
-            });
+            if (skillsRef.current) {
+                gsap.from(skillsRef.current.children, {
+                    x: 100,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.15,
+                });
+            }
 
             gsap.to(profileRef.current, {
                 y: -40,
                 duration: 2,
                 repeat: -1,
                 yoyo: true,
-                ease: 'power1.inOut',
-                delay: 1.5
             });
-            console.log()
-
-            if (dragRef.current?.firstChild) {
-
-                gsap.to(dragRef.current?.firstChild, {
-                    y: -20,
-                    duration: 1,
-                    repeat: -1,
-                    yoyo: true,
-
-                })
-            }
-
         }, containerRef);
 
-
-
-        return () => {
-            ctx.revert()
-        };
+        return () => ctx.revert();
     }, []);
 
-    const containerRef = useRef<HTMLDivElement>(null);
-    const dragRef = useRef<HTMLDivElement>(null);
-    const titleContainerRef = useRef<HTMLDivElement>(null);
-
-    const [position, setPosition] = useState<PositionType>({ x: 0, y: 0 });
-    const [dragging, setDragging] = useState(false);
-    const [rel, setRel] = useState<null | any>(null);
-
-    // Initialize position on mount
-    useEffect(() => {
-        if (containerRef.current) {
-            const rect = containerRef.current.getBoundingClientRect();
-            setPosition({
-                x: rect.width * 0.9,
-                y: rect.height * 0.55
-            });
-        }
-    }, []);
-
-    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!containerRef.current || !dragRef.current) return;
-
-        const dragRect = dragRef.current.getBoundingClientRect();
-        // const parentRect = containerRef.current.getBoundingClientRect();
-
-        setDragging(true);
-        setRel({
-            x: e.clientX - dragRect.left,
-            y: e.clientY - dragRect.top
-        });
-    };
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!dragging || !containerRef.current || !dragRef.current) return;
-
-        const parentRect = containerRef.current.getBoundingClientRect();
-        const dragRect = dragRef.current.getBoundingClientRect();
-
-        const newX = e.clientX - parentRect.left - rel.x;
-        const newY = e.clientY - parentRect.top - rel.y;
-        const maxX = parentRect.width - dragRect.width;
-        const maxY = parentRect.height - dragRect.height;
-
-        setPosition({
-            x: Math.max(0, Math.min(newX, maxX)),
-            y: Math.max(0, Math.min(newY, maxY)),
-        });
-    };
-
-    const handleMouseUp = () => {
-        setDragging(false);
-    };
-
+    /* ─────────────────────────────
+       SPOTLIGHT STYLE
+    ───────────────────────────── */
     const getSpotlightStyle = (ref: React.RefObject<HTMLElement | null>) => {
+        if (!spotlightOn) {
+            return { maskImage: 'none', WebkitMaskImage: 'none' };
+        }
+
         if (!ref.current || !containerRef.current) return {};
 
         const containerRect = containerRef.current.getBoundingClientRect();
         const targetRect = ref.current.getBoundingClientRect();
 
-        const spotlightCenterX = position.x + 112; // same radius logic
+        const spotlightCenterX = position.x + 112;
         const spotlightCenterY = position.y + 112;
 
         const relativeX = spotlightCenterX - (targetRect.left - containerRect.left);
         const relativeY = spotlightCenterY - (targetRect.top - containerRect.top);
 
         return {
-            maskImage: `radial-gradient(circle 112px at ${relativeX}px ${relativeY}px, black 100%, transparent 100%)`,
-            WebkitMaskImage: `radial-gradient(circle 112px at ${relativeX}px ${relativeY}px, black 100%, transparent 100%)`
+            maskImage: `radial-gradient(circle 120px at ${relativeX}px ${relativeY}px, black 100%, transparent 100%)`,
+            WebkitMaskImage: `radial-gradient(circle 120px at ${relativeX}px ${relativeY}px, black 100%, transparent 100%)`,
         };
     };
 
-    const handleRemoveDragRefChild = () => {
-        const child = dragRef.current?.querySelector('p')
-        if (child) {
-            gsap.to(child, {
-                opacity: 0,
-                duration: 1.5,
-                ease: 'back.out',
+    /* ─────────────────────────────
+       DRAG HANDLERS
+    ───────────────────────────── */
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!dragRef.current) return;
+        const rect = dragRef.current.getBoundingClientRect();
+        setDragging(true);
+        setRel({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    };
 
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!dragging || !containerRef.current || !dragRef.current || !rel) return;
+        const parent = containerRef.current.getBoundingClientRect();
+        const dragRect = dragRef.current.getBoundingClientRect();
+        const x = e.clientX - parent.left - rel.x;
+        const y = e.clientY - parent.top - rel.y;
+        setPosition({
+            x: Math.max(0, Math.min(x, parent.width - dragRect.width)),
+            y: Math.max(0, Math.min(y, parent.height - dragRect.height)),
+        });
+    };
 
-                onComplete: () => {
+    const handleMouseUp = () => setDragging(false);
 
-                    child.remove()
-                }
-            })
-
-        }
-    }
+    /* ─────────────────────────────
+       TOGGLE SPOTLIGHT
+    ───────────────────────────── */
+    const toggleSpotlight = () => {
+        setSpotlightOn((prev) => {
+            const next = !prev;
+            if (dragRef.current) {
+                gsap.to(dragRef.current, {
+                    scale: next ? 1 : 0,
+                    opacity: next ? 1 : 0,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                });
+            }
+            return next;
+        });
+    };
 
     return (
         <section
             id="about"
             ref={containerRef}
-            className='relative min-h-screen w-full p-10 bg-gradient-to-br from-black via-gray-950 to-black text-gray-900 overflow-hidden'
+            className="relative min-h-screen w-full p-10 bg-black text-white overflow-hidden"
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
         >
-            <div className='relative w-full h-full grid grid-cols-1 md:grid-cols-3 grid-flow-row md:grid-rows-2 gap-8 justify-items-center items-center'>
+            {/* ── TOGGLE BUTTON ── */}
+            <button
+                onClick={toggleSpotlight}
+                className="absolute top-6 right-6 z-50 px-4 py-2 rounded-lg bg-yellow-400 text-black font-bold hover:scale-105 transition"
+            >
+                {spotlightOn ? 'Turn OFF' : 'Turn ON'}
+            </button>
 
-                {/* Profile Section */}
-                <div className='md:row-span-2 w-full h-full flex flex-col items-center justify-center gap-6'>
-                    <div className='relative group'>
-                        <div className='absolute rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000'></div>
+            {/* ── MAIN LAYOUT ──
+                Rows:
+                  Row 1 (flex-1): Profile | Title | Skills
+                  Row 2 (auto):   Hobbies (col 1–2) | empty (col 3)
+                  Row 3 (auto):   Footer (full width)
+            ── */}
+            <div className="flex flex-col gap-10 min-h-[calc(100vh-5rem)]">
+
+                {/* ROW 1 — three equal columns */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-1 items-center">
+
+                    {/* COL 1 — Profile + Name */}
+                    <div className="flex flex-col items-center gap-6">
                         <img
                             ref={profileRef}
                             src="about_profile.jpg"
-                            alt="about_profile_picture"
-                            className='relative rounded-full w-96 h-96 object-cover border-4 border-white shadow-2xl hover:scale-110 transition-transform duration-500 cursor-pointer'
+                            alt="Rukesh Shivahari"
+                            className="rounded-full w-56 h-56 md:w-72 md:h-72 object-cover ring-4 ring-yellow-400/30"
                         />
+                        <div ref={nameRef} style={getSpotlightStyle(nameRef)}>
+                            <h2 className="text-2xl md:text-3xl font-bold text-center">
+                                Rukesh Shivahari
+                            </h2>
+                        </div>
                     </div>
+
+                    {/* COL 2 — Title */}
                     <div
-                        ref={nameRef}
-                        className='text-center'
-                        style={getSpotlightStyle(nameRef)}
+                        ref={titleContainerRef}
+                        style={getSpotlightStyle(titleContainerRef)}
+                        className="flex items-center justify-center"
                     >
-                        <p className='text-2xl font-light mb-2 text-white'>Hello There! I am</p>
-                        <h2 className='text-4xl font-bold text-white'>
-                            Rukesh Shivahari
-                        </h2>
+                        <h1
+                            ref={titleRef}
+                            className="text-4xl md:text-6xl font-bold leading-tight text-center"
+                        >
+                            Software
+                            <br />
+                            Developer
+                        </h1>
                     </div>
-                </div>
 
-                {/* Title Section */}
-                <div
-                    ref={titleContainerRef}
-                    className='relative bg-black flex items-center justify-center p-6 overflow-hidden'
-                    style={getSpotlightStyle(titleContainerRef)}
-                >
-                    <h1
-                        ref={titleRef}
-                        className='text-white text-6xl md:text-8xl font-bold leading-tight select-none'
-                    >
-                        Software Developer
-                    </h1>
-                </div>
-
-                {/* Skills Section */}
-                <div className='md:row-span-2 w-full h-full p-6'
-                >
-                    <div className='bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-white/20 hover:border-purple-400 transition-all duration-300'>
-                        <h3 className='text-3xl font-bold mb-6 text-blue-400'>Tech Stack</h3>
+                    {/* COL 3 — Skills */}
+                    <div className="flex items-center justify-center md:justify-start">
                         <ul
                             ref={skillsRef}
-                            className='flex flex-col gap-y-4 text-xl text-white'
                             style={getSpotlightStyle(skillsRef)}
-
+                            className="flex flex-col gap-3"
                         >
-                            {TechSkillList.map((skill, index) => (
+                            {TechSkillList.map((skill, i) => (
                                 <li
-                                    key={index}
-                                    className='flex items-center gap-3 group'
+                                    key={i}
+                                    className="flex items-center gap-2 text-lg font-medium tracking-wide"
                                 >
-                                    <span className='w-2 h-2 bg-purple-400 rounded-full group-hover:w-4 transition-all duration-300'></span>
-                                    <span className='group-hover:text-purple-300 transition-colors duration-300'>{skill}</span>
+                                    <span className="w-2 h-2 rounded-full bg-yellow-400 shrink-0" />
+                                    {skill}
                                 </li>
                             ))}
                         </ul>
                     </div>
                 </div>
 
-                {/* Hobbies Section */}
+                {/* ROW 2 — Hobbies */}
                 <div
                     ref={hobbiesRef}
-                    className='flex items-center justify-center p-6'
                     style={getSpotlightStyle(hobbiesRef)}
                 >
-                    <div className='bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300'>
-                        <h3 className='text-2xl font-bold mb-4 text-blue-300'>Hobbies</h3>
-                        <p className='text-3xl md:text-4xl font-light leading-relaxed text-white'>
-                            Playing Sports, Singing and Jamming, Writing Music, Manga/Comics
-                        </p>
+                    <p className="text-xs tracking-[0.3em] uppercase text-yellow-400/60 mb-4 font-medium">
+                        Outside the IDE
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                        {[
+                            { icon: '⚽', label: 'Playing Sports', sub: 'Football · Basketball · Badminton' },
+                            { icon: '🎸', label: 'Music', sub: 'Guitar · Songwriting · Jamming' },
+                            { icon: '📖', label: 'Manga', sub: 'Shonen · Seinen · Webtoons' },
+                        ].map(({ icon, label, sub }) => (
+                            <div
+                                key={label}
+                                className="group relative flex items-center gap-4 px-5 py-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden cursor-default transition-all duration-300 hover:border-yellow-400/50 hover:bg-white/10"
+                                style={{ minWidth: '200px' }}
+                            >
+                                {/* Glow blob on hover */}
+                                <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                    style={{
+                                        background: 'radial-gradient(circle at 30% 50%, rgba(250,204,21,0.12) 0%, transparent 70%)',
+                                    }}
+                                />
+
+                                {/* Icon bubble */}
+                                <div className="relative shrink-0 w-12 h-12 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
+                                    {icon}
+                                </div>
+
+                                {/* Text */}
+                                <div className="relative">
+                                    <p className="font-semibold text-white text-sm leading-tight">{label}</p>
+                                    <p className="text-gray-500 text-xs mt-0.5 group-hover:text-gray-400 transition-colors duration-300">{sub}</p>
+                                </div>
+
+                                {/* Corner accent */}
+                                <div className="absolute bottom-0 right-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    style={{
+                                        background: 'linear-gradient(135deg, transparent 50%, rgba(250,204,21,0.2) 50%)',
+                                        borderTopLeftRadius: '50%',
+                                    }}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                {/* Footer Section */}
+                {/* ROW 3 — Footer (full width) */}
                 <div
                     ref={footerRef}
-                    className='col-span-1 md:col-span-3 flex items-center justify-center'
                     style={getSpotlightStyle(footerRef)}
+                    className="border-t border-white/10 pt-6 text-center text-gray-500 text-sm tracking-widest uppercase"
                 >
-                    <p className='text-3xl font-light italic text-gray-400 hover:text-white transition-colors duration-300 cursor-default'>
-                        Well, see you around ✌️
-                    </p>
+                    See you around ✌️
                 </div>
             </div>
 
-            {/* Draggable Spotlight */}
+            {/* ── SPOTLIGHT CIRCLE ── */}
             <div
                 ref={dragRef}
-                className='w-56 h-56 rounded-full ring-2 ring-amber-200 shadow-[0_0_100px_rgba(251,191,36,0.7)] bg-yellow-100 mix-blend-difference'
                 onMouseDown={handleMouseDown}
+                onMouseEnter={() => setIsFading(true)}
+                className="absolute w-56 h-56 rounded-full bg-yellow-200 mix-blend-difference pointer-events-auto"
                 style={{
-                    position: 'absolute',
                     left: position.x,
                     top: position.y,
                     cursor: dragging ? 'grabbing' : 'grab',
-                    userSelect: 'none',
-                    padding: 10
                 }}
-                onMouseEnter={() => { handleRemoveDragRefChild() }}
             >
-                <p className='flex  justify-center text-4xl mt-[50%] 
-              font-semibold text-black 
-             tracking-wide select-none'>
-                    Drag me!!</p>
+                {!hasHovered && (
+                    <>
+                        <div
+                            className="absolute inset-0 flex items-center justify-center"
+                            style={{
+                                opacity: isFading ? 0 : 1,
+                                transition: isFading ? 'opacity 0.8s ease' : 'none',
+                            }}
+                            onTransitionEnd={() => setHasHovered(true)}
+                        >
+                            <span
+                                className="text-black font-black text-sm tracking-widest uppercase"
+                                style={{ animation: 'dragBounce 1s ease-in-out infinite' }}
+                            >
+                                Drag Me
+                            </span>
+                        </div>
+
+                        <style>{`
+                            @keyframes dragBounce {
+                                0%, 100% { transform: translateY(0);    }
+                                50%       { transform: translateY(-8px); }
+                            }
+                        `}</style>
+                    </>
+                )}
             </div>
         </section>
     );
 };
 
 export default About;
-
-
-
-
-
-// <section id="about" ref={containerRef} className='relative h-screen w-screen p-10 bg-gray-500 text-black' >
-//     <div className='w-full h-full grid grid-cols-3 grid-flow-row grid-rows-2  gap-5 justify-items-center items-center '>
-
-//         <div className='row-span-2  w-full h-full flex flex-col '>
-
-//             <img src="about_profile.jpg" alt="about_profile_picture" className=' rounded-full hover:scale-90 transition-transform duration-500' />
-//             <div>
-//                 Hello There ! I am  Rukesh Shivahari
-//             </div>
-
-//         </div>
-
-//         <div className='  '>
-
-//             <p className='text-8xl'>
-//                 Software Developer
-//             </p>
-//         </div>
-
-
-//         <div className='row-span-2  p-6  '>
-//             <div className='flex flex-col gap-y-5 text-2xl'>
-//                 {TechSkillList.map((skill, index) =>
-//                     <li key={index}>
-//                         {skill}
-//                     </li>
-//                 )}
-
-
-//             </div>
-//         </div>
-
-//         <div className=' '>
-//             <p className='text-5xl'>
-//                 Hobbies : Playing Sports, Singing and Jamming, Writing Musics, Manga/Comics
-//             </p>
-
-//         </div>
-//         <div className='col-span-3  '>
-//             <p>
-
-//                 Well see you around
-//             </p>
-//         </div>
-
-
-
-
-
-
-//     </div>
