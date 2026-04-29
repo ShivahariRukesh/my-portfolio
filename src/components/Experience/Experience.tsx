@@ -187,11 +187,10 @@ const Experience = () => {
     }
 
     return (
-        <section id="experience" className="bg-black min-h-[200vh] w-full p-16">
-            <hr className="bg-white w-full mb-2 opacity-20" />
-
-            <h2 className="mb-16 text-xs tracking-[0.4em] text-gray-500 uppercase font-[Orbitron]">
-                // Experience
+        <section id="experience" className="bg-black min-h-[200vh] w-full p-16  text-center ">
+            <hr className="bg-white w-full " />
+            <h2 className="mb-16 text-6xl">
+                Professional Experience
             </h2>
 
             <div className="flex flex-col items-center gap-20 w-full">
